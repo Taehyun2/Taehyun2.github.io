@@ -1,5 +1,3 @@
-APP.jsx
-
 import { useEffect, useState } from "react";
 import RoomLobby from "./components/RoomLobby";
 import EditorRoom from "./components/EditorRoom";
