@@ -1,0 +1,457 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #1e1e1e;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 60px;
+  padding: 0 20px;
+  background: #252526;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h2 {
+  font-size: 18px;
+}
+
+.workspace {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background: #252526;
+  padding: 15px;
+}
+
+.editor-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-tab {
+  background: #2d2d2d;
+  padding: 12px;
+}
+
+.editor-container {
+  flex: 1;
+  min-height: 0;
+}
+
+.ai-panel {
+  width: 280px;
+  flex-shrink: 0;
+  background: #252526;
+  padding: 20px;
+}
+
+.ai-panel button {
+  padding: 10px;
+  width: 100%;
+  background: #536dfe;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-header button {
+  background: #3c3c3c;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0;
+  border-radius: 4px;
+}
+
+.file-item.active {
+  background: #37373d;
+}
+
+.file-name {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 9px 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  border: none;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 8px;
+}
+
+.delete-btn:hover {
+  color: #ff6b6b;
+}
+/* 협업 방 대기 화면 */
+
+.lobby {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: #1e1e1e;
+}
+
+.lobby-card {
+  width: 100%;
+  max-width: 430px;
+  background: #292929;
+  border: 1px solid #414141;
+  border-radius: 12px;
+  padding: 35px;
+  text-align: center;
+}
+
+.lobby-card h1 {
+  font-size: 25px;
+  margin-bottom: 12px;
+}
+
+.lobby-card > p {
+  color: #bdbdbd;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.create-room-btn,
+.join-room-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.create-room-btn {
+  background: #536dfe;
+  margin-top: 25px;
+}
+
+.create-room-btn:hover {
+  background: #4054c8;
+}
+
+.lobby-divider {
+  color: #999;
+  margin: 25px 0;
+}
+
+.lobby-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.lobby-card label {
+  font-size: 14px;
+}
+
+.lobby-card input {
+  width: 100%;
+  padding: 13px;
+  background: #1e1e1e;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+}
+
+.lobby-card input:focus {
+  outline: 2px solid #536dfe;
+}
+
+.join-room-btn {
+  background: #41414b;
+}
+
+.join-room-btn:hover {
+  background: #555563;
+}
+
+.room-error {
+  color: #ff8888 !important;
+  font-size: 12px;
+}
+
+.lobby-card .lobby-notice {
+  font-size: 12px;
+  color: #9a9a9a;
+  margin-top: 25px;
+}
+
+/* 코드 편집기 상단 협업 버튼 */
+
+.room-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.room-badge {
+  background: #343a54;
+  color: #c6d1ff;
+  padding: 7px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.connection-status {
+  color: #f2c078;
+  font-size: 12px;
+}
+
+.room-controls button {
+  padding: 8px 12px;
+  background: #3c3c3c;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.room-controls button:hover {
+  background: #505050;
+}
+
+@media (max-width: 700px) {
+  .room-controls {
+    gap: 5px;
+  }
+
+  .room-badge,
+  .connection-status {
+    display: none;
+  }
+
+  .room-controls button {
+    font-size: 11px;
+    padding: 7px;
+  }
+}
+/* 참여자 목록 디자인 수정 */
+
+.users-panel {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  width: 100%;
+}
+
+.users-panel h3 {
+  font-size: 15px;
+  margin: 0 0 20px;
+}
+
+.users-panel label {
+  display: block;
+  margin-bottom: 10px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.users-panel input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  background: #333337;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+}
+
+.users-panel input:focus {
+  border-color: #536dfe;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #333337;
+  padding: 12px;
+  margin-top: 18px;
+  border-radius: 8px;
+}
+
+.user-avatar {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  background: #536dfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 5px;
+}
+
+.user-details strong {
+  color: white;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.user-details span {
+  color: #aaa;
+  font-size: 11px;
+}
+
+.users-notice {
+  margin-top: 18px;
+  font-size: 12px !important;
+  color: #e5bb7d !important;
+  line-height: 1.7;
+}
+/* AI 리뷰 디자인 최종 수정 */
+
+.ai-panel .review-card {
+  background: #303136;
+  border: 1px solid #464852;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.ai-panel .review-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ai-panel .review-card-header span {
+  color: #ffcb7f;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.ai-panel .review-card-header small {
+  color: #aaa;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.ai-panel .review-card strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.ai-panel .review-card p {
+  color: #c9c9c9;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.ai-panel .review-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.ai-panel .review-actions button {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  padding: 9px 6px;
+  margin: 0;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.ai-panel .review-actions .accept-btn {
+  background: #345d4d;
+}
+
+.ai-panel .review-actions .reject-btn {
+  background: #4a4b55;
+}
+
+.ai-panel .review-actions .accept-btn.selected {
+  background: #238662;
+  outline: 2px solid #71caaa;
+}
+
+.ai-panel .review-actions .reject-btn.selected {
+  background: #a44f55;
+  outline: 2px solid #e69ba0;
+}
+
+.ai-panel .review-stats {
+  margin-top: 24px;
+  padding: 15px;
+  background: #303136;
+  border: 1px solid #464852;
+  border-radius: 8px;
+}
+
+.ai-panel .review-stats h4 {
+  margin-top: 0;
+}
+
+.ai-panel .review-stats p {
+  margin: 9px 0;
+  font-size: 12px;
+}
